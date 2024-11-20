@@ -12,10 +12,11 @@ import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
-	private Stage stage;
+	private static Stage stage;
 	@Override
 	public void start(Stage primaryStage) {
 		stage = primaryStage;
+		initializeDB.startDB();
 		
 		BorderPane pane = new BorderPane();
 		
@@ -23,6 +24,7 @@ public class Main extends Application {
 		Button btnCreateLibrary = new Button("Create Library");
 		Button btnViewItems = new Button("View All Items");
 		Button btnCreateMedia = new Button("Add New Media");
+		
 		
 		HBox hBoxFirstRow = new HBox(10);
 		hBoxFirstRow.getChildren().addAll(btnViewLibrary, btnCreateLibrary);
@@ -39,18 +41,21 @@ public class Main extends Application {
 		pane.setCenter(vbox);
 
 		
-		Scene scene = new Scene(pane, 600, 300);
-		primaryStage.setScene(scene);
+		Scene mainScene = new Scene(pane, 600, 300);
+		
+		
+		
+		primaryStage.setScene(mainScene);
 		primaryStage.show();
 		
 		//btnViewLibrary.setOnAction(e ->switchScenes(createScene.viewLibrary()));
-		btnCreateLibrary.setOnAction(e ->switchScenes(createScene.createLibrary()));
+		btnCreateLibrary.setOnAction(e ->switchScenes(createScene.createLibrary(mainScene)));
 		//btnViewItems.setOnAction(e ->switchScenes(createScene.viewItems()));
-		//btnCreateMedia.setOnAction(e ->switchScenes(createScene.createMedia()));
+		btnCreateMedia.setOnAction(e ->switchScenes(createScene.createMedia(mainScene)));
 
 	}
 	
-	public void switchScenes(Scene scene) {
+	public static void switchScenes(Scene scene) {
 		stage.setScene(scene);
 	}
 	
