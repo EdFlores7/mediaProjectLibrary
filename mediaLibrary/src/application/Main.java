@@ -16,10 +16,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		stage = primaryStage;
-		initializeDB.startDB();
 		
 		BorderPane pane = new BorderPane();
 		
+		Button btnNewItem = new Button("Add new item");
 		Button btnViewLibrary = new Button("View Library");
 		Button btnCreateLibrary = new Button("Create Library");
 		Button btnViewItems = new Button("View All Items");
@@ -27,7 +27,7 @@ public class Main extends Application {
 		
 		
 		HBox hBoxFirstRow = new HBox(10);
-		hBoxFirstRow.getChildren().addAll(btnViewLibrary, btnCreateLibrary);
+		hBoxFirstRow.getChildren().addAll(btnNewItem,btnViewLibrary, btnCreateLibrary);
 		hBoxFirstRow.setAlignment(Pos.CENTER);
 		
 		HBox hBoxSecondRow = new HBox(10);
@@ -48,9 +48,10 @@ public class Main extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 		
-		//btnViewLibrary.setOnAction(e ->switchScenes(createScene.viewLibrary()));
+		//btnNewItem.setOnAction(e ->switchScenes(createScene.createItem(mainScene)));
+		//btnViewLibrary.setOnAction(e ->switchScenes(createScene.viewLibrary(mainScene)));
 		btnCreateLibrary.setOnAction(e ->switchScenes(createScene.createLibrary(mainScene)));
-		//btnViewItems.setOnAction(e ->switchScenes(createScene.viewItems()));
+		//btnViewItems.setOnAction(e ->switchScenes(createScene.viewItems(mainScene)));
 		btnCreateMedia.setOnAction(e ->switchScenes(createScene.createMedia(mainScene)));
 
 	}

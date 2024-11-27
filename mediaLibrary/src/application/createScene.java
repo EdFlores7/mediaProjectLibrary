@@ -2,6 +2,8 @@ package application;
 
 
 
+import java.sql.SQLException;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +17,13 @@ import javafx.scene.text.Font;
 import javafx.scene.control.TextField;
 
 public class createScene {
+	private static DatabaseAccess db = new DatabaseAccess();
+	
+	//public static Scene createItem() {
+	
+	//return scene;
+	//}
+
 
 	//public static Scene viewLibrary() {
 		
@@ -37,21 +46,24 @@ public class createScene {
 		grid.add(libraryLbl, 0, 0);
 		TextField text = new TextField();
 		grid.add(text, 1, 0);
-		Label mediaLbl = new Label("Media: ");
-		grid.add(mediaLbl, 0, 1);
-		TextField text2 = new TextField();
-		grid.add(text2, 1, 1);
 		grid.setAlignment(Pos.CENTER);
 		
-		//Temporary back button
 		
 		HBox bottomHbox = new HBox();
 		
+		//Temporary back button
 		Button back = new Button("Go Back");
 		back.setOnAction(e ->Main.switchScenes(mainScene));
 		
 		Button submitButton = new Button("Submit");
-		
+		submitButton.setOnAction(e ->{
+			try {
+				db.addLibrary(text.getText());
+				text.clear();
+			} catch (SQLException e1) {
+				System.out.println("Error");
+			}
+		});
 		
 		bottomHbox.getChildren().addAll(back, submitButton);
 		pane.setBottom(bottomHbox);
@@ -70,7 +82,7 @@ public class createScene {
 	public static Scene createMedia(Scene mainScene) {
 		BorderPane pane = new BorderPane();
 		
-		Label titleLbl = new Label("Enter information to create a new media type:");
+		Label titleLbl = new Label("Enter new media name:");
 		titleLbl.setFont(new Font("Arial", 15));
 		HBox topHbox = new HBox();
 		topHbox.getChildren().add(titleLbl);
@@ -83,10 +95,6 @@ public class createScene {
 		grid.add(libraryLbl, 0, 0);
 		TextField text = new TextField();
 		grid.add(text, 1, 0);
-		Label mediaLbl = new Label("Media type: ");
-		grid.add(mediaLbl, 0, 1);
-		TextField text2 = new TextField();
-		grid.add(text2, 1, 1);
 		grid.setAlignment(Pos.CENTER);
 		
 		
@@ -97,6 +105,15 @@ public class createScene {
 		back.setOnAction(e ->Main.switchScenes(mainScene));
 		
 		Button submitButton = new Button("Submit");
+		
+		submitButton.setOnAction(e ->{
+			try {
+				db.addMedia(text.getText());
+				text.clear();
+			} catch (SQLException e1) {
+				System.out.println("Error");
+			}
+		});
 		
 		bottomHbox.getChildren().addAll(back, submitButton);
 		pane.setBottom(bottomHbox);
