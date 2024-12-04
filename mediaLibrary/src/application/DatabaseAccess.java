@@ -1,5 +1,7 @@
 package application;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DatabaseAccess {
@@ -28,4 +30,34 @@ public class DatabaseAccess {
 			stmnt.executeUpdate();
 		}
 	}
-}
+	
+	public void addItem(String item) throws SQLException {
+		
+	}
+	
+    public List<String> getData() throws SQLException {
+
+    	String query = "Select media_name from medias";
+        List<String> options = new ArrayList<>();
+
+		try (Connection conn = DatabaseConnection.getConnection();
+		Statement stmt = conn.createStatement();
+		
+		PreparedStatement stmnt = conn.prepareStatement(query)){
+			ResultSet set = stmnt.executeQuery();
+		
+
+
+
+            while (set.next()) {
+                options.add(set.getString("media_name"));
+            }
+
+            set.close();
+
+            // Return the List
+            return options;
+		}
+        }
+    }
+

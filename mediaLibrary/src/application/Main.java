@@ -48,7 +48,7 @@ public class Main extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.show();
 		
-		//btnNewItem.setOnAction(e ->switchScenes(createScene.createItem(mainScene)));
+		btnNewItem.setOnAction(e ->switchScenes(createScene.createItem(mainScene)));
 		//btnViewLibrary.setOnAction(e ->switchScenes(createScene.viewLibrary(mainScene)));
 		btnCreateLibrary.setOnAction(e ->switchScenes(createScene.createLibrary(mainScene)));
 		//btnViewItems.setOnAction(e ->switchScenes(createScene.viewItems(mainScene)));
