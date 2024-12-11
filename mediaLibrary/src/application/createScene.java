@@ -49,7 +49,7 @@ public class createScene {
 		
 		ComboBox<String> mediaList = new ComboBox<String>();
 		try {
-			mediaList.setItems(FXCollections.observableArrayList(db.getData()));
+			mediaList.setItems(FXCollections.observableArrayList(db.getMedia()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,15 +58,26 @@ public class createScene {
 		grid.add(mediaLbl, 0, 2);
 		grid.add(mediaList, 1, 2);
 		
+		ComboBox<String> libraryList = new ComboBox<String>();
+		try {
+			libraryList.setItems(FXCollections.observableArrayList(db.getLibrary()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
-		
-		Label libraryLbl = new Label("Item Description: ");
+		Label libraryLbl = new Label("Library: ");
 		grid.add(libraryLbl, 0, 3);
+		grid.add(libraryList, 1, 3);
+		
+		
+		
+		Label descriptionLbl = new Label("Notes: ");
+		grid.add(descriptionLbl, 0, 4);
 		TextArea texta = new TextArea();
 		texta.setPrefColumnCount(15);
 		texta.setPrefHeight(100);
 		texta.setPrefWidth(300);
-		grid.add(texta, 1, 3);
+		grid.add(texta, 1, 4);
 		grid.setAlignment(Pos.CENTER);
 		
 		HBox bottomHbox = new HBox();
@@ -78,8 +89,15 @@ public class createScene {
 		
 		Button submitButton = new Button("Submit");
 		submitButton.setOnAction(e ->{
-			text1.clear();
+				try {
+					db.addItem(text1.getText(), text2.getText(), texta.getText(), db.getId(mediaList.getValue()), db.getLibraryId(libraryList.getValue()));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 		});
+		
 		bottomHbox.getChildren().addAll(back, submitButton);
 		
 		pane.setBottom(bottomHbox);
